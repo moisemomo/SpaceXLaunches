@@ -11,7 +11,7 @@ class SpaceXSDK(databaseDriverFactory: DatabaseDriverFactory) {
 
     @Throws(Exception::class) suspend fun getLaunches(forceReload: Boolean): List<RocketLaunch> {
         val cachedLaunches = database.getAllLaunches()
-        return if (cachedLaunches.isEmpty() && !forceReload) {
+        return if (cachedLaunches.isNotEmpty() && !forceReload) {
             cachedLaunches
         } else {
             api.getAllLaunches().also {
